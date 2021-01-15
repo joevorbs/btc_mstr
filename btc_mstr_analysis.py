@@ -66,3 +66,35 @@ for i, j in zip(joey.index, joey['ccf']):
 
 #Plot the CCF with 100 lead and lag times (minutes)
 plt.xcorr(tester2['btc'], tester2['mstr'], maxlags = 100)
+
+#BTC movement statistics - this section will be combined 
+copy_df = tester2
+copy_df['shifted_btc'] = copy_df['btc'].shift(1)
+
+copy_df['difference_btc'] = copy_df['shifted_btc'] - copy_df['btc']
+
+copy_df['difference_btc'] = copy_df['difference_btc'].abs()
+
+avg_btc = copy_df['difference'].mean()
+max_btc = copy_df['difference'].max()
+min_btc = copy_df['difference'].min()
+
+print("MSTR")
+for i,j in zip(['avg','max','min'],[avg_mstr,max_mstr,min_mstr]):
+     print(i, j)
+
+#MSTR movement statistics
+copy_df = tester2
+copy_df['shifted_mstr'] = copy_df['mstr'].shift(1)
+
+copy_df['difference_mstr'] = copy_df['shifted_mstr'] - copy_df['mstr']
+
+copy_df['difference_mstr'] = copy_df['difference_mstr'].abs()
+
+avg_mstr = copy_df['difference_mstr'].mean()
+max_mstr = copy_df['difference_mstr'].max()
+min_mstr = copy_df['difference_mstr'].min()
+
+print("BTC")
+for i,j in zip(['avg','max','min'] ,[avg_btc,max_btc,min_btc]):
+     print(i, j)
